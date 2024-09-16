@@ -7,13 +7,23 @@ require('dotenv').config({ path: './backend/.env' });
 // CORS middleware with specified allowed origin
 app.use(cors({
     origin: 'https://own-it-rental.vercel.app',
-    methods: ['GET'], // Specify allowed methods
-    allowedHeaders: ['Content-Type'], // Specify allowed Headers
-    optionsSuccessStatus: 200, // For legacy browsers support
+    methods: ['GET', 'POST', 'OPTIONS'], // Specify allowed methods
+    allowedHeaders: ['Content-Type', 'Authorization'], // Specify allowed Headers
+    optionsSuccessStatus: 204 // For legacy browsers support
 }));
 
+// Allow preflight requests for all routes
+app.options('*', cors());
+
+// Apply CORS headers to all routes globally
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'https://own-it-rental.vercel.app');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
+
 // Serve static files from the 'public' folder
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // Serve `index.html` when the root URL is accessed
 app.get('/', (req, res) => {
