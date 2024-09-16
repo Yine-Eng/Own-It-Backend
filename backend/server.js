@@ -4,7 +4,12 @@ const app = express();
 const path = require('path');
 require('dotenv').config({ path: './backend/.env' });
 
-app.use(cors()); // Enable CORS for all routes
+// CORS middleware with specified allowed origin
+const corsOptions = {
+    origin: 'https://own-it-rental.vercel.app',
+    optionsSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 
 // Serve static files from the 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
