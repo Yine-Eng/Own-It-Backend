@@ -8,7 +8,7 @@
     ],
     "routes": [
         {
-            "src": "/api/(.*)",
+            "src": "/api/google-maps-key",
             "dest": "/backend/server.js"
         }
     ]

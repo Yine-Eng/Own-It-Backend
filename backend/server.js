@@ -7,7 +7,8 @@ require('dotenv').config({ path: './backend/.env' });
 // CORS middleware with specified allowed origin
 const corsOptions = {
     origin: 'https://own-it-rental.vercel.app',
-    optionsSuccessStatus: 200,
+    methods: 'GET, POST', // Specify allowed methods
+    optionsSuccessStatus: 200, // For legacy browsers support
 };
 app.use(cors(corsOptions));
 
