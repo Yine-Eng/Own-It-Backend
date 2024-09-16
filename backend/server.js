@@ -5,12 +5,12 @@ const path = require('path');
 require('dotenv').config({ path: './backend/.env' });
 
 // CORS middleware with specified allowed origin
-const corsOptions = {
+app.use(cors({
     origin: 'https://own-it-rental.vercel.app',
-    methods: ['GET', 'POST'], // Specify allowed methods
+    methods: ['GET'], // Specify allowed methods
+    allowedHeaders: ['Content-Type'], // Specify allowed Headers
     optionsSuccessStatus: 200, // For legacy browsers support
-};
-app.use(cors(corsOptions));
+}));
 
 // Serve static files from the 'public' folder
 app.use(express.static(path.join(__dirname, 'public')));
@@ -24,6 +24,7 @@ app.get('/', (req, res) => {
 app.get('/api/google-maps-key', (req, res) => {
     const apiKey = process.env.GOOGLE_MAPS_API_KEY;
     if (apiKey) {
+        res.setHeader('Access-Control-Allow-Origin', 'https://own-it-rental.vercel.app'); // Added CORS headers manually for this route
         res.json({ apiKey });
     } else {
         res.status(500).json({ error: 'API key not found' });
