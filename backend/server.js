@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-require('dotenv').config({ path: './backend/.env' });
+// Load environment variable from .env file
+require('dotenv').config();
 
 // CORS middleware with specified allowed origin
 app.use(cors({
