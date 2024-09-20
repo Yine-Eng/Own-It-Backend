@@ -20,6 +20,7 @@ app.get('/', (req, res) => {
 app.get('/api/google-maps-key', (req, res) => {
     const apiKey = process.env.GOOGLE_MAPS_API_KEY;
     if (apiKey) {
+        res.setHeader('Access-Control-Allow-Origin', 'https://own-it-rental.vercel.app');
         res.json({ apiKey });
     } else {
         res.status(500).json({ error: 'API key not found' });
